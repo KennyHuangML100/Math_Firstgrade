@@ -99,6 +99,10 @@
       grid-column: span 5;
       position: relative;
       overflow: hidden;
+      display: grid;
+      align-content: end;
+      min-height: 300px;
+      padding: 28px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background:
@@ -119,10 +123,8 @@
     }
 
     .scene-card {
-      position: absolute;
-      left: 38px;
-      right: 38px;
-      bottom: 34px;
+      position: relative;
+      z-index: 2;
       padding: 22px;
       border-radius: 8px;
       background: rgba(255, 253, 249, 0.86);
@@ -138,6 +140,120 @@
 
     .scene-card span {
       color: var(--muted);
+    }
+
+    .buddy-stage {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .buddy {
+      position: relative;
+      min-height: 142px;
+      padding: 12px 8px 8px;
+      border: 1px solid rgba(226, 216, 203, 0.82);
+      border-radius: 8px;
+      background: rgba(255, 253, 249, 0.68);
+      text-align: center;
+    }
+
+    .buddy-face {
+      position: relative;
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 8px;
+      border: 3px solid rgba(46, 46, 46, 0.72);
+      box-shadow: inset 0 -8px rgba(46, 46, 46, 0.08);
+    }
+
+    .buddy-face::before,
+    .buddy-face::after {
+      content: "";
+      position: absolute;
+      top: 24px;
+      width: 8px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--ink);
+    }
+
+    .buddy-face::before {
+      left: 20px;
+    }
+
+    .buddy-face::after {
+      right: 20px;
+    }
+
+    .buddy-mouth {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      width: 24px;
+      height: 12px;
+      border-bottom: 3px solid rgba(46, 46, 46, 0.72);
+      border-radius: 0 0 24px 24px;
+      transform: translateX(-50%);
+    }
+
+    .buddy-ear {
+      position: absolute;
+      top: -14px;
+      width: 23px;
+      height: 23px;
+      border: 3px solid rgba(46, 46, 46, 0.72);
+      background: inherit;
+    }
+
+    .buddy-ear.left {
+      left: 4px;
+      transform: rotate(-18deg);
+    }
+
+    .buddy-ear.right {
+      right: 4px;
+      transform: rotate(18deg);
+    }
+
+    .buddy-blue .buddy-face {
+      border-radius: 50%;
+      background: #78b7df;
+    }
+
+    .buddy-forest .buddy-face {
+      width: 82px;
+      height: 76px;
+      border-radius: 44% 44% 48% 48%;
+      background: #8fb7a4;
+    }
+
+    .buddy-spark .buddy-face {
+      border-radius: 42% 42% 46% 46%;
+      background: #f2cf5a;
+    }
+
+    .buddy-spark .buddy-ear {
+      height: 30px;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+
+    .buddy-label {
+      display: block;
+      color: var(--accent-dark);
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .buddy small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.35;
     }
 
     .eyebrow {
@@ -475,6 +591,27 @@
       .question {
         grid-template-columns: 1fr;
       }
+
+      .scene {
+        padding: 18px;
+      }
+
+      .buddy-stage {
+        grid-template-columns: 1fr;
+      }
+
+      .buddy {
+        min-height: auto;
+        display: grid;
+        grid-template-columns: 86px 1fr;
+        gap: 10px;
+        align-items: center;
+        text-align: left;
+      }
+
+      .buddy-face {
+        margin: 0;
+      }
     }
   </style>
 </head>
@@ -490,6 +627,41 @@
         <p class="intro">依照九個教材單元安排課後練習。每題可逐題展開解題過程，讓家長陪孩子從想法、算式到答案一步一步核對。</p>
       </div>
       <aside class="scene" aria-label="學習摘要">
+        <div class="buddy-stage" aria-label="原創卡通學習夥伴">
+          <div class="buddy buddy-blue">
+            <div class="buddy-face">
+              <span class="buddy-ear left"></span>
+              <span class="buddy-ear right"></span>
+              <span class="buddy-mouth"></span>
+            </div>
+            <div>
+              <strong class="buddy-label">圓圓數學貓</strong>
+              <small>一起數到 100</small>
+            </div>
+          </div>
+          <div class="buddy buddy-forest">
+            <div class="buddy-face">
+              <span class="buddy-ear left"></span>
+              <span class="buddy-ear right"></span>
+              <span class="buddy-mouth"></span>
+            </div>
+            <div>
+              <strong class="buddy-label">森林數字精靈</strong>
+              <small>慢慢想也很棒</small>
+            </div>
+          </div>
+          <div class="buddy buddy-spark">
+            <div class="buddy-face">
+              <span class="buddy-ear left"></span>
+              <span class="buddy-ear right"></span>
+              <span class="buddy-mouth"></span>
+            </div>
+            <div>
+              <strong class="buddy-label">閃閃算數星</strong>
+              <small>合十拆十更快</small>
+            </div>
+          </div>
+        </div>
         <div class="scene-card">
           <strong>9 單元・90 題</strong>
           <span>每個單元皆可開啟原教材 PDF，並搭配 10 題課後測驗。</span>
