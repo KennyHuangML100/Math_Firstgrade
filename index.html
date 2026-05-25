@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>國小一年級數學科學習</title>
+  <style>
+    :root {
+      --bg: #F7F5F2;
+      --paper: #fffdf9;
+      --ink: #2E2E2E;
+      --muted: #6f6f6f;
+      --secondary: #9E9E9E;
+      --accent: #C58940;
+      --accent-dark: #8b5a24;
+      --line: #e2d8cb;
+      --soft: #f1e7d8;
+      --answer: #fff7ea;
+      --green: #517d73;
+      --shadow: 0 18px 44px rgba(46, 46, 46, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft JhengHei", "Noto Sans TC", "PingFang TC", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .top-mark {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 20;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 249, 0.92);
+      color: var(--accent-dark);
+      font-size: 0.92rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 22px rgba(46, 46, 46, 0.08);
+    }
+
+    .page-count {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      min-width: 76px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 249, 0.94);
+      color: var(--accent-dark);
+      font-family: Consolas, "Courier New", monospace;
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(46, 46, 46, 0.08);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 34px 0 58px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      align-items: stretch;
+      min-height: 300px;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      grid-column: span 7;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .scene {
+      grid-column: span 5;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(197, 137, 64, 0.18), rgba(81, 125, 115, 0.16)),
+        linear-gradient(0deg, #f8efe3, #fffdf9);
+      box-shadow: var(--shadow);
+    }
+
+    .scene::before {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border: 1px solid rgba(197, 137, 64, 0.34);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, transparent 0 31%, rgba(197, 137, 64, 0.20) 31% 32%, transparent 32% 64%, rgba(197, 137, 64, 0.16) 64% 65%, transparent 65%),
+        linear-gradient(0deg, transparent 0 31%, rgba(81, 125, 115, 0.16) 31% 32%, transparent 32% 64%, rgba(81, 125, 115, 0.12) 64% 65%, transparent 65%);
+    }
+
+    .scene-card {
+      position: absolute;
+      left: 38px;
+      right: 38px;
+      bottom: 34px;
+      padding: 22px;
+      border-radius: 8px;
+      background: rgba(255, 253, 249, 0.86);
+      border: 1px solid rgba(226, 216, 203, 0.9);
+    }
+
+    .scene-card strong {
+      display: block;
+      color: var(--accent-dark);
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .scene-card span {
+      color: var(--muted);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent-dark);
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.15rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .intro {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      gap: 8px;
+      margin: 26px 0 20px;
+    }
+
+    .tab {
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 160ms ease;
+    }
+
+    .tab:hover {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .unit-panel {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .unit-head,
+    .practice {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .unit-head {
+      grid-column: span 4;
+      position: sticky;
+      top: 76px;
+      padding: 26px;
+    }
+
+    .unit-kicker {
+      margin: 0 0 8px;
+      color: var(--accent-dark);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 700;
+    }
+
+    .unit-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .unit-desc {
+      margin: 0 0 20px;
+      color: var(--muted);
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .meta-list div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .meta-list strong {
+      color: var(--ink);
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .material-link {
+      display: inline-flex;
+      width: 100%;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .practice {
+      grid-column: span 8;
+      padding: 26px;
+    }
+
+    .practice-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .practice-head h2 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+
+    .practice-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .practice-tools {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 12px;
+      background: #fff;
+      color: var(--accent-dark);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tool-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .tool-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.48;
+    }
+
+    .questions {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .question {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .number {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--soft);
+      color: var(--accent-dark);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 800;
+    }
+
+    .prompt {
+      margin: 0;
+      font-size: 1.06rem;
+      font-weight: 700;
+    }
+
+    .answer-toggle {
+      margin-top: 11px;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 12px;
+      background: #fff;
+      color: var(--accent-dark);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .solution {
+      display: none;
+      margin-top: 12px;
+      padding: 14px;
+      border-left: 4px solid var(--accent);
+      background: var(--answer);
+      color: var(--ink);
+    }
+
+    .solution.visible {
+      display: block;
+    }
+
+    .solution-title {
+      margin: 0 0 6px;
+      color: var(--accent-dark);
+      font-weight: 800;
+    }
+
+    .solution p {
+      margin: 0 0 8px;
+    }
+
+    .solution p:last-child {
+      margin-bottom: 0;
+    }
+
+    .math {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 700;
+    }
+
+    .final-answer {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .note {
+      margin: 18px 0 0;
+      color: var(--secondary);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .unit-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .scene,
+      .unit-head,
+      .practice {
+        grid-column: auto;
+      }
+
+      .scene {
+        min-height: 230px;
+      }
+
+      .unit-head {
+        position: static;
+      }
+
+      .tabs {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .top-mark {
+        position: static;
+        width: calc(100% - 36px);
+        margin: 14px auto 0;
+      }
+
+      .wrap {
+        width: min(100% - 24px, 1180px);
+        padding-top: 14px;
+      }
+
+      .hero-copy,
+      .unit-head,
+      .practice {
+        padding: 20px;
+      }
+
+      .tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .practice-head {
+        display: block;
+      }
+
+      .practice-tools {
+        justify-content: flex-start;
+        margin-top: 14px;
+      }
+
+      .question {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-mark" id="chapterMark">單元一</div>
+  <div class="page-count" id="pageCount">01 / 09</div>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">溫暖陪伴・穩定練習</p>
+        <h1 id="page-title">國小一年級數學科學習</h1>
+        <p class="intro">依照九個教材單元安排課後練習。每題可逐題展開解題過程，讓家長陪孩子從想法、算式到答案一步一步核對。</p>
+      </div>
+      <aside class="scene" aria-label="學習摘要">
+        <div class="scene-card">
+          <strong>9 單元・90 題</strong>
+          <span>每個單元皆可開啟原教材 PDF，並搭配 10 題課後測驗。</span>
+        </div>
+      </aside>
+    </section>
+
+    <nav class="tabs" id="unitTabs" aria-label="單元選擇"></nav>
+    <section class="unit-panel" id="unitPanel" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const units = [
+      {
+        label: "單元一",
+        title: "50以內的數數",
+        file: "單元一 ~ 50以內的數數.pdf",
+        desc: "練習數到 50、比較大小、前後數與十位個位概念。",
+        questions: [
+          ["從 1 數到 20，請寫出 14 後面的兩個數。", "照順序往後數：14、15、16，所以 14 後面的第一個數是 15，第二個數是 16。", "15、16"],
+          ["38 裡面有幾個十和幾個一？", "38 可以分成 30 和 8；30 是 3 個十，8 是 8 個一。", "3 個十和 8 個一"],
+          ["請把 27、35、19 由小到大排列。", "先看十位：19 是 1 個十，27 是 2 個十，35 是 3 個十；十位越小，數越小。", "19、27、35"],
+          ["42 的前一個數是多少？後一個數是多少？", "前一個數就是少 1，42 - 1 = 41；後一個數就是多 1，42 + 1 = 43。", "前一個是 41，後一個是 43"],
+          ["小明有 24 顆積木，小華有 29 顆積木，誰比較多？", "24 和 29 的十位都是 2，再比個位：9 比 4 大，所以 29 比 24 多。", "小華比較多"],
+          ["請寫出 30、31、32 後面接下來的三個數。", "每次多 1 往後數：30、31、32、33、34、35。", "33、34、35"],
+          ["45 比 40 多多少？", "45 可以看成 40 加 5，所以 45 比 40 多 5。", "多 5"],
+          ["哪一個數比較接近 50：46 還是 39？", "46 到 50 還差 4；39 到 50 還差 11。差得比較少，代表比較接近。", "46"],
+          ["第 8 個小朋友排在第 7 個小朋友的前面還是後面？", "排隊序數會 1、2、3 往後增加，第 8 個在第 7 個之後。", "後面"],
+          ["用 4 個十和 6 個一組成的數是多少？", "4 個十是 40，6 個一是 6；40 和 6 合起來是 46。", "46"]
+        ]
+      },
+      {
+        label: "單元二",
+        title: "18以內的加法",
+        file: "單元二 ~ 18以內的加法.pdf",
+        desc: "練習湊十、合併數量與 18 以內加法。",
+        questions: [
+          ["8 + 5 = ?", "先把 8 湊成 10，需要 2；把 5 分成 2 和 3，8 + 2 = 10，10 + 3 = 13。", "13"],
+          ["9 + 6 = ?", "9 湊 10 需要 1；把 6 分成 1 和 5，9 + 1 = 10，10 + 5 = 15。", "15"],
+          ["7 + 8 = ?", "7 湊 10 需要 3；把 8 分成 3 和 5，7 + 3 = 10，10 + 5 = 15。", "15"],
+          ["6 + 9 = ?", "9 湊 10 需要 1；把 6 分成 1 和 5，9 + 1 = 10，10 + 5 = 15。", "15"],
+          ["小安有 7 張貼紙，媽媽又給他 5 張，一共有幾張？", "這是合起來的問題，用加法。7 湊 10 需要 3；5 分成 3 和 2，7 + 3 = 10，10 + 2 = 12。", "12 張"],
+          ["籃子裡有 9 顆蘋果，又放進 4 顆，現在有幾顆？", "原來有 9 顆，又放進 4 顆，用 9 + 4。9 + 1 = 10，4 還剩 3，所以 10 + 3 = 13。", "13 顆"],
+          ["請用湊十想一想：8 + 6 = ?", "8 還差 2 湊成 10；6 分成 2 和 4，8 + 2 = 10，10 + 4 = 14。", "14"],
+          ["3 + 9 + 2 = ?", "可以先把容易湊十的數合起來：9 + 3 = 12，再加 2 得 14。", "14"],
+          ["哥哥讀了 6 頁書，妹妹讀了 8 頁書，兩人共讀幾頁？", "兩人共讀就是合起來，6 + 8。8 湊 10 需要 2；6 分成 2 和 4，8 + 2 = 10，10 + 4 = 14。", "14 頁"],
+          ["哪一個算式答案是 16：7 + 8、9 + 7、5 + 9？", "逐一計算：7 + 8 = 15，9 + 7 = 16，5 + 9 = 14。", "9 + 7"]
+        ]
+      },
+      {
+        label: "單元三",
+        title: "圖形與分類",
+        file: "單元三 ~ 圖形與分類.pdf",
+        desc: "練習辨認圖形特徵、生活物品形體與分類理由。",
+        questions: [
+          ["有 3 個邊、3 個角的圖形叫什麼？", "先數邊有 3 條，再數角有 3 個；有 3 邊 3 角的平面圖形是三角形。", "三角形"],
+          ["正方形有幾個邊？幾個角？", "正方形四周有 4 條邊，每兩條邊相接形成一個角，共有 4 個角。", "4 個邊、4 個角"],
+          ["圓形有沒有角？", "角是兩條直直的邊相接形成的；圓形邊線彎彎的，沒有直邊相接。", "沒有"],
+          ["長方形和正方形相同的地方是什麼？", "觀察兩種圖形，兩者都有 4 條邊，也都有 4 個角。", "都有 4 個邊和 4 個角"],
+          ["球、正方體、長方體，哪一個可以滾動得最順？", "球的表面是圓圓的，沒有平平的面擋住，所以最容易連續滾動。", "球"],
+          ["鉛筆盒比較像長方體還是球？", "鉛筆盒通常有長長的平面、邊和角，比較像長方體，不像圓圓的球。", "長方體"],
+          ["把紅色三角形和藍色三角形分在一起，是依照什麼分類？", "雖然顏色不同，但它們都是三角形，所以是依照形狀來分類。", "依照形狀分類"],
+          ["把大圓和小圓分成兩堆，是依照什麼分類？", "兩個都是圓形，差別在大或小，所以是依照大小分類。", "依照大小分類"],
+          ["生活中哪一樣物品的面常像圓形？請寫一個。", "先想圓形的特徵：邊線彎彎、沒有角；硬幣、時鐘、盤子常有圓形的面。", "例：硬幣、時鐘、盤子"],
+          ["一個圖形有 4 個一樣長的邊，可能是什麼圖形？", "正方形的 4 條邊一樣長，也有 4 個角，所以符合題目特徵。", "正方形"]
+        ]
+      },
+      {
+        label: "單元四",
+        title: "18以內的減法",
+        file: "單元四 ~ 18以內的減法.pdf",
+        desc: "練習拿走、剩下、比較與 18 以內減法。",
+        questions: [
+          ["15 - 7 = ?", "想加法反推：7 加多少等於 15？7 + 8 = 15，所以 15 - 7 = 8。", "8"],
+          ["14 - 6 = ?", "想 6 加多少是 14；6 + 8 = 14，所以 14 - 6 = 8。", "8"],
+          ["18 - 9 = ?", "18 可以分成 9 和 9；拿走 9，還剩另一個 9。", "9"],
+          ["13 - 5 = ?", "先從 13 拿走 3 到 10，再拿走剩下的 2，10 - 2 = 8。", "8"],
+          ["桌上有 16 顆糖，吃掉 8 顆，還剩幾顆？", "吃掉是拿走，用減法 16 - 8。想 8 + 8 = 16，所以剩 8。", "8 顆"],
+          ["公園有 12 隻鳥，飛走 5 隻，還有幾隻？", "飛走表示減少，用 12 - 5。先 12 - 2 = 10，再減 3 得 7。", "7 隻"],
+          ["小美有 17 元，買鉛筆花 9 元，剩下幾元？", "花掉 9 元就是從 17 元拿走 9 元。想 9 + 8 = 17，所以剩 8 元。", "8 元"],
+          ["哪一個算式答案是 6：12 - 5、14 - 8、13 - 9？", "逐一計算：12 - 5 = 7，14 - 8 = 6，13 - 9 = 4。", "14 - 8"],
+          ["哥哥有 15 張卡片，弟弟有 9 張，哥哥比弟弟多幾張？", "比較多多少，用減法 15 - 9。想 9 + 6 = 15，所以多 6 張。", "6 張"],
+          ["請填空：? + 7 = 16", "想 7 加多少會到 16；7 + 9 = 16，所以空格是 9。", "9"]
+        ]
+      },
+      {
+        label: "單元五",
+        title: "有多長",
+        file: "單元五 ~ 有多長.pdf",
+        desc: "練習長短比較、間接比較與用固定單位測量。",
+        questions: [
+          ["鉛筆比橡皮擦長，橡皮擦比迴紋針長，哪一個最長？", "先排關係：鉛筆 > 橡皮擦，橡皮擦 > 迴紋針，所以鉛筆最長。", "鉛筆"],
+          ["量桌子的長度時，每次用的積木大小要不要一樣？", "用積木當單位時，單位大小要一樣，量出來的格數才公平、可比較。", "要一樣"],
+          ["一條線用 6 個相同積木排滿，另一條線用 8 個相同積木排滿，哪一條比較長？", "單位相同時，看用了幾個單位。8 個比 6 個多，所以用 8 個積木的線較長。", "用 8 個積木的比較長"],
+          ["小華的繩子長 12 格，小安的繩子長 9 格，誰的繩子比較短？", "單位都是格，直接比較 12 和 9；9 比 12 小，所以小安較短。", "小安"],
+          ["尺上從 0 到 7，長度是幾公分？", "從 0 開始量到 7，經過 7 個 1 公分，所以長度是 7 公分。", "7 公分"],
+          ["尺上從 2 到 9，長度是幾公分？", "不是看 9，而是看兩端相差多少；9 - 2 = 7。", "7 公分"],
+          ["一本書長 20 公分，鉛筆長 14 公分，書比鉛筆長幾公分？", "比較長多少，用減法 20 - 14。先 20 - 10 = 10，再 10 - 4 = 6。", "6 公分"],
+          ["用腳步量教室，為什麼每個人的答案可能不同？", "每個人的一步長短不同，使用的單位不一樣，所以量出的步數可能不同。", "因為每個人的腳步長短不同"],
+          ["請選出適合量課本長度的工具：尺、湯匙、球。", "量長度需要有刻度或固定長度的工具；尺有刻度，最適合量課本。", "尺"],
+          ["紅線長 15 公分，藍線比紅線短 4 公分，藍線長幾公分？", "藍線比較短，所以從紅線長度拿掉 4 公分：15 - 4 = 11。", "11 公分"]
+        ]
+      },
+      {
+        label: "單元六",
+        title: "100以內的數",
+        file: "單元六 ~ 100以內的數.pdf",
+        desc: "練習 100 以內數字、位值、大小比較與數列。",
+        questions: [
+          ["68 裡面有幾個十和幾個一？", "68 可以分成 60 和 8；60 是 6 個十，8 是 8 個一。", "6 個十和 8 個一"],
+          ["用 7 個十和 3 個一組成的數是多少？", "7 個十是 70，3 個一是 3；70 和 3 合起來是 73。", "73"],
+          ["請把 54、45、72 由大到小排列。", "先比十位：72 是 7 個十最大，54 是 5 個十，45 是 4 個十。", "72、54、45"],
+          ["99 的後一個數是多少？", "後一個數是多 1；99 + 1 = 100。", "100"],
+          ["80 的前一個數是多少？", "前一個數是少 1；80 - 1 = 79。", "79"],
+          ["哪一個數比較大：67 還是 76？", "先看十位，67 是 6 個十，76 是 7 個十；7 個十比較大。", "76"],
+          ["從 35 開始往後數 5 個數，最後數到幾？", "依序往後數 5 次：36、37、38、39、40，所以最後是 40。", "40"],
+          ["請填空：58、59、60、__、__。", "每次多 1 往後數，60 後面是 61，再後面是 62。", "61、62"],
+          ["90 比 84 多多少？", "比較多多少，用減法 90 - 84；84 到 90 要再數 6。", "多 6"],
+          ["最接近 70 的數是哪一個：68、61、79？", "68 到 70 差 2；61 到 70 差 9；79 到 70 差 9。差 2 最小，所以 68 最近。", "68"]
+        ]
+      },
+      {
+        label: "單元七",
+        title: "認識錢幣",
+        file: "單元七 ~ 認識錢幣.pdf",
+        desc: "練習錢幣面額、合計金額、付款與找錢。",
+        questions: [
+          ["1 個 10 元和 3 個 1 元合起來是幾元？", "1 個 10 元是 10 元，3 個 1 元是 3 元，10 + 3 = 13。", "13 元"],
+          ["2 個 10 元和 5 個 1 元合起來是幾元？", "2 個 10 元是 20 元，再加 5 個 1 元，20 + 5 = 25。", "25 元"],
+          ["1 個 50 元可以換成幾個 10 元？", "把 50 分成一個一個 10：10、20、30、40、50，共 5 個 10。", "5 個"],
+          ["小明有 30 元，買一枝 18 元的筆，還剩幾元？", "剩下多少用減法 30 - 18。先 30 - 10 = 20，再 20 - 8 = 12。", "12 元"],
+          ["一瓶牛奶 25 元，一個麵包 15 元，一共要幾元？", "買兩樣東西要合起來：25 + 15。先 20 + 10 = 30，再 5 + 5 = 10，合計 40。", "40 元"],
+          ["付 100 元買 60 元的東西，應找回幾元？", "找回多少就是 100 - 60。10 個十拿走 6 個十，剩 4 個十。", "40 元"],
+          ["哪一組錢剛好是 37 元：3 個 10 元和 7 個 1 元，或 4 個 10 元和 7 個 1 元？", "3 個 10 元是 30 元，加 7 元是 37 元；4 個 10 元是 40 元，加 7 元是 47 元。", "3 個 10 元和 7 個 1 元"],
+          ["有 5 個 10 元，總共是幾元？", "5 個 10 元就是 10 + 10 + 10 + 10 + 10，也就是 50 元。", "50 元"],
+          ["小華有 45 元，再得到 10 元，現在有幾元？", "再得到表示增加，用 45 + 10；多 1 個十，45 變成 55。", "55 元"],
+          ["買 32 元的東西，可以怎麼付剛好的錢？請寫一種。", "32 元可以分成 30 元和 2 元；30 元是 3 個 10 元，2 元是 2 個 1 元。", "例：3 個 10 元和 2 個 1 元"]
+        ]
+      },
+      {
+        label: "單元八",
+        title: "二位數的加減",
+        file: "單元八 ~二位數的加減.pdf",
+        desc: "練習二位數加減、整十加減與生活情境計算。",
+        questions: [
+          ["24 + 13 = ?", "先加十位：20 + 10 = 30；再加個位：4 + 3 = 7；30 + 7 = 37。", "37"],
+          ["35 + 20 = ?", "20 是 2 個十，把 35 的十位增加 2 個十：35、45、55。", "55"],
+          ["46 + 12 = ?", "先加 10：46 + 10 = 56；再加 2：56 + 2 = 58。", "58"],
+          ["78 - 30 = ?", "30 是 3 個十，從 78 拿走 3 個十：78、68、58、48。", "48"],
+          ["65 - 23 = ?", "先減 20：65 - 20 = 45；再減 3：45 - 3 = 42。", "42"],
+          ["50 - 18 = ?", "先減 10 得 40，再減 8 得 32；也可以想 18 加 32 等於 50。", "32"],
+          ["小美有 26 張貼紙，又買 14 張，一共有幾張？", "又買表示增加，用 26 + 14。先 26 + 10 = 36，再 36 + 4 = 40。", "40 張"],
+          ["書架上有 58 本書，借走 25 本，還剩幾本？", "借走表示減少，用 58 - 25。先 58 - 20 = 38，再 38 - 5 = 33。", "33 本"],
+          ["哥哥跑了 42 公尺，弟弟跑了 36 公尺，哥哥比弟弟多跑幾公尺？", "比較多多少，用 42 - 36。36 到 40 差 4，40 到 42 差 2，共差 6。", "6 公尺"],
+          ["請填空：37 + __ = 57", "37 到 57，個位同樣是 7，十位從 3 個十變 5 個十，多了 2 個十。", "20"]
+        ]
+      },
+      {
+        label: "單元九",
+        title: "幾月幾日星期幾",
+        file: "單元九 ~ 幾月幾日星期幾.pdf",
+        desc: "練習月分、日期、星期順序與日曆判讀。",
+        questions: [
+          ["一星期有幾天？", "依照星期順序：星期一、二、三、四、五、六、日，共 7 天。", "7 天"],
+          ["星期一的後一天是星期幾？", "星期順序往後數一天：星期一後面是星期二。", "星期二"],
+          ["星期日的前一天是星期幾？", "星期順序往前數一天：星期日的前一天是星期六。", "星期六"],
+          ["如果今天是星期三，過 2 天是星期幾？", "從星期三往後數 2 天：第 1 天星期四，第 2 天星期五。", "星期五"],
+          ["5 月 1 日的後一天是幾月幾日？", "同一個月往後一天，日期加 1：1 日後一天是 2 日。", "5 月 2 日"],
+          ["如果 6 月 10 日是星期一，6 月 12 日是星期幾？", "6 月 10 日到 12 日過 2 天；星期一往後 2 天是星期三。", "星期三"],
+          ["一年有幾個月？", "月分從 1 月數到 12 月，所以一年有 12 個月。", "12 個月"],
+          ["請把星期五、星期三、星期一依照一星期的順序排列。", "一星期中先到星期一，再到星期三，最後到星期五。", "星期一、星期三、星期五"],
+          ["如果今天是 3 月 8 日，明天是幾月幾日？", "明天是後一天，同一個月日期加 1：8 日後一天是 9 日。", "3 月 9 日"],
+          ["日曆上同一列相鄰的兩天，日期相差多少？", "日曆同一列左右相鄰代表連續日期，連續日期每次差 1 天。", "相差 1 天"]
+        ]
+      }
+    ];
+
+    const tabs = document.querySelector("#unitTabs");
+    const panel = document.querySelector("#unitPanel");
+    const chapterMark = document.querySelector("#chapterMark");
+    const pageCount = document.querySelector("#pageCount");
+    let currentIndex = 0;
+    const generatedQuestions = {};
+
+    function rand(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function pick(items) {
+      return items[rand(0, items.length - 1)];
+    }
+
+    function shuffle(items) {
+      return [...items].sort(() => Math.random() - 0.5);
+    }
+
+    function makeItem(prompt, process, answer) {
+      return [prompt, process, answer];
+    }
+
+    function generateUnitOne() {
+      const a = rand(12, 47);
+      const b = rand(21, 49);
+      const c = rand(11, 49);
+      const tens = rand(2, 4);
+      const ones = rand(1, 9);
+      const target = tens * 10 + ones;
+      const start = rand(20, 42);
+      const nearA = rand(32, 44);
+      const nearB = rand(12, 31);
+      return [
+        makeItem(`請寫出 ${a} 後面的兩個數。`, `照順序往後數：${a}、${a + 1}、${a + 2}，所以後面兩個數是 ${a + 1} 和 ${a + 2}。`, `${a + 1}、${a + 2}`),
+        makeItem(`${b} 裡面有幾個十和幾個一？`, `${b} 可以分成 ${Math.floor(b / 10) * 10} 和 ${b % 10}；${Math.floor(b / 10) * 10} 是 ${Math.floor(b / 10)} 個十，${b % 10} 是 ${b % 10} 個一。`, `${Math.floor(b / 10)} 個十和 ${b % 10} 個一`),
+        makeItem(`用 ${tens} 個十和 ${ones} 個一組成的數是多少？`, `${tens} 個十是 ${tens * 10}，${ones} 個一是 ${ones}，合起來是 ${target}。`, `${target}`),
+        makeItem(`請從 ${start} 開始往後數 4 個數。`, `每次多 1：${start + 1}、${start + 2}、${start + 3}、${start + 4}。`, `${start + 1}、${start + 2}、${start + 3}、${start + 4}`),
+        makeItem(`${c} 的前一個數和後一個數各是多少？`, `前一個數是少 1：${c} - 1 = ${c - 1}；後一個數是多 1：${c} + 1 = ${c + 1}。`, `前一個是 ${c - 1}，後一個是 ${c + 1}`),
+        makeItem(`${target} 比 ${tens * 10} 多多少？`, `${target} 可以看成 ${tens * 10} 加 ${ones}，所以比 ${tens * 10} 多 ${ones}。`, `多 ${ones}`),
+        makeItem(`哪一個數比較接近 50：${nearA} 還是 ${nearB}？`, `${nearA} 到 50 差 ${50 - nearA}；${nearB} 到 50 差 ${50 - nearB}。差比較少的比較接近 50。`, `${50 - nearA <= 50 - nearB ? nearA : nearB}`),
+        makeItem(`請把 ${a}、${b}、${c} 由小到大排列。`, `先看十位，再看個位；依照數線從左到右排列。`, shuffle([a, b, c]).sort((x, y) => x - y).join("、")),
+        makeItem(`第 ${rand(6, 9)} 個小朋友排在第 5 個小朋友的前面還是後面？`, `排隊序數會從第 1 個往後增加，數字比 5 大的位置在第 5 個後面。`, "後面"),
+        makeItem(`請從 ${tens * 10} 開始，每次多 10，數三個數。`, `累加 10 就是每次多 1 個十：${tens * 10}、${tens * 10 + 10}、${tens * 10 + 20}。`, `${tens * 10}、${tens * 10 + 10}、${tens * 10 + 20}`)
+      ];
+    }
+
+    function generateUnitTwo() {
+      const pairs = [[8, rand(3, 9)], [9, rand(2, 9)], [7, rand(4, 9)], [6, rand(5, 9)]];
+      const storyA = rand(6, 9);
+      const storyB = rand(3, 9);
+      const ballA = rand(8, 9);
+      const ballB = rand(4, 8);
+      const threeA = rand(2, 5);
+      const threeB = rand(1, 4);
+      const fillA = rand(7, 9);
+      const fillTarget = rand(fillA + 3, 18);
+      const explainB = rand(4, 9);
+      const makeAdd = ([a, b]) => {
+        const need = 10 - a;
+        const left = b - need;
+        return makeItem(`${a} + ${b} = ?`, `${a} 湊成 10 需要 ${need}；把 ${b} 分成 ${need} 和 ${left}，${a} + ${need} = 10，10 + ${left} = ${a + b}。`, `${a + b}`);
+      };
+      return [
+        ...pairs.map(makeAdd),
+        makeItem(`小安有 ${storyA} 張貼紙，又得到 ${storyB} 張，一共有幾張？`, `合起來用加法。${storyA} + ${storyB} = ${storyA + storyB}，也可以用合十方法先湊到 10 再加剩下的數。`, `${storyA + storyB} 張`),
+        makeItem(`盒子裡有 ${ballA} 顆球，又放進 ${ballB} 顆，現在有幾顆？`, `${ballA} 湊 10 需要 ${10 - ballA}；把 ${ballB} 分成 ${10 - ballA} 和 ${ballB - (10 - ballA)}，先湊成 10，再加剩下的數，得到 ${ballA + ballB}。`, `${ballA + ballB} 顆`),
+        makeItem(`${threeA} + 9 + ${threeB} = ?`, `先算 ${threeA} + 9 = ${threeA + 9}，再加 ${threeB}，${threeA + 9} + ${threeB} = ${threeA + 9 + threeB}。`, `${threeA + 9 + threeB}`),
+        makeItem(`哪一個算式答案是 16：7 + 8、9 + 7、5 + 9？`, `逐一計算：7 + 8 = 15，9 + 7 = 16，5 + 9 = 14。`, "9 + 7"),
+        makeItem(`請填空：${fillA} + __ = ${fillTarget}`, `用加法反推：從 ${fillA} 數到 ${fillTarget}，差 ${fillTarget - fillA}，所以空格是 ${fillTarget - fillA}。`, `${fillTarget - fillA}`),
+        makeItem(`用合十方法說明 8 + ${explainB}。`, `8 需要 2 才能湊成 10；把 ${explainB} 分成 2 和 ${explainB - 2}，8 + 2 = 10，10 + ${explainB - 2} = ${8 + explainB}。`, `${8 + explainB}`)
+      ].slice(0, 10);
+    }
+
+    function generateUnitThree() {
+      const color = pick(["紅色", "藍色", "黃色", "綠色"]);
+      return [
+        makeItem("有 3 個邊、3 個角的圖形叫什麼？", "先數邊，再數角；3 邊 3 角的圖形是三角形。", "三角形"),
+        makeItem("有 4 個一樣長的邊、4 個角，可能是什麼圖形？", "4 個邊一樣長，又有 4 個角，符合正方形的特徵。", "正方形"),
+        makeItem("圓形和三角形可以依照什麼特徵分成兩類？", "觀察有沒有角：三角形有角，圓形沒有角。", "有角和沒有角"),
+        makeItem(`${color} 三角形和 ${color} 正方形放在一起，是依照什麼分類？`, `兩個圖形顏色相同，所以這種分類標準是顏色。`, "依照顏色分類"),
+        makeItem("把圖形分成三角形、正方形、圓形，是依照什麼分類？", "分類時看共同特徵；這裡是看形狀不同。", "依照形狀分類"),
+        makeItem("用畫「正」記錄數量，一個「正」代表幾個？", "畫正字共有 5 筆，適合 5 個一數記錄數量。", "5 個"),
+        makeItem("如果圓形有 8 個、三角形有 6 個，哪一類比較多？", "比較 8 和 6，8 比 6 大，所以圓形比較多。", "圓形"),
+        makeItem("兩個圖形形狀不同，但用一樣多的小正方形拼成，可以說明什麼？", "形狀可以不同，但使用的小正方形數量一樣，表示大小或占的格數一樣。", "形狀不同，數量一樣"),
+        makeItem("整理衣服時，可以依照哪些特徵分類？請寫一種。", "先觀察衣服的差異，例如顏色、長短、種類或季節，選一個標準分類。", "例：依顏色、種類或長短分類"),
+        makeItem("分類結果的紀錄表應該包含什麼？", "要讓別人看懂分類結果，需要有分類名稱、數量和單位。", "分類名稱、數量、單位")
+      ];
+    }
+
+    function generateUnitFour() {
+      const a = rand(12, 18);
+      const b = rand(5, 9);
+      const c = rand(13, 18);
+      const d = rand(4, 9);
+      return [
+        makeItem(`${a} - ${b} = ?`, `用拆十想：先從 ${a} 減到 10，再把還要減的數減完；也可以想 ${b} 加多少等於 ${a}。`, `${a - b}`),
+        makeItem(`${c} - ${d} = ?`, `先拆到 10：${c} 先減 ${c - 10} 得 10，再減剩下的 ${d - (c - 10)}，答案是 ${c - d}。`, `${c - d}`),
+        makeItem(`有 ${a} 顆糖，吃掉 ${b} 顆，還剩幾顆？`, `吃掉是拿走，用減法 ${a} - ${b} = ${a - b}。`, `${a - b} 顆`),
+        makeItem(`公園有 ${c} 隻鳥，飛走 ${d} 隻，還有幾隻？`, `飛走表示減少，用 ${c} - ${d}；先拆十再減，比較容易算。`, `${c - d} 隻`),
+        makeItem(`哥哥有 ${a} 張卡片，弟弟有 ${b} 張，哥哥比弟弟多幾張？`, `比較多多少，用減法 ${a} - ${b}。`, `${a - b} 張`),
+        makeItem(`請填空：__ + ${b} = ${a}`, `想 ${b} 加多少會等於 ${a}，也就是 ${a} - ${b}。`, `${a - b}`),
+        makeItem(`哪一個算式答案是 ${c - d}：${c} - ${d}、${a} - ${b}、18 - 9？`, `逐一計算並比較答案；${c} - ${d} = ${c - d}。`, `${c} - ${d}`),
+        makeItem(`小美有 ${c} 元，買東西花 ${d} 元，剩下幾元？`, `花掉就是拿走，用 ${c} - ${d} = ${c - d}。`, `${c - d} 元`),
+        makeItem(`${a} 可以分成 ${b} 和多少？`, `用減法找另一部分：${a} - ${b} = ${a - b}。`, `${a - b}`),
+        makeItem(`從 ${c} 往前數 ${d} 次，會到幾？`, `往前數就是每次少 1，少 ${d} 次等於 ${c} - ${d}。`, `${c - d}`)
+      ];
+    }
+
+    function generateUnitFive() {
+      const x = rand(8, 18);
+      const y = rand(3, 7);
+      const start = rand(1, 5);
+      const end = rand(8, 15);
+      const blockA = rand(5, 9);
+      const blockB = rand(10, 14);
+      const penA = rand(10, 15);
+      const penB = rand(16, 20);
+      return [
+        makeItem("用積木量桌子時，為什麼每個積木大小要一樣？", "測量時單位要固定，格數才可以公平比較。", "因為單位要一樣"),
+        makeItem(`紅線長 ${x} 公分，藍線比紅線短 ${y} 公分，藍線長幾公分？`, `比較短表示要減掉：${x} - ${y} = ${x - y}。`, `${x - y} 公分`),
+        makeItem(`尺上從 ${start} 到 ${end}，長度是幾公分？`, `看兩端相差多少，不是只看右邊數字；${end} - ${start} = ${end - start}。`, `${end - start} 公分`),
+        makeItem(`一條線用 ${blockA} 個相同積木排滿，另一條線用 ${blockB} 個相同積木排滿，哪一條比較長？`, `單位相同時，使用的單位數越多，長度越長；${blockB} 比 ${blockA} 多。`, `用 ${blockB} 個積木的比較長`),
+        makeItem("用腳步量教室時，為什麼每個人的步數可能不同？", "每個人的一步長短不同，使用的單位不同，所以結果可能不同。", "腳步長短不同"),
+        makeItem(`書長 ${x + y} 公分，鉛筆長 ${x} 公分，書比鉛筆長幾公分？`, `比較長多少，用減法 ${x + y} - ${x} = ${y}。`, `${y} 公分`),
+        makeItem("量課本長度，尺和球哪一個比較適合？", "尺有固定刻度，可以用來量長度；球不適合量直線長度。", "尺"),
+        makeItem("甲繩比乙繩長，乙繩比丙繩長，哪一條最短？", "關係是甲 > 乙 > 丙，所以丙最短。", "丙繩"),
+        makeItem(`一枝彩色筆長 ${penA} 公分，一枝鉛筆長 ${penB} 公分，哪一枝比較長？`, `兩個長度都是公分，直接比較數字大小；${penB} 比 ${penA} 大。`, "鉛筆"),
+        makeItem("用迴紋針量長度時，迴紋針可以重疊嗎？", "測量時單位要一個接一個排好，不能重疊或留空。", "不可以")
+      ];
+    }
+
+    function generateUnitSix() {
+      const n = rand(51, 98);
+      const tens = rand(4, 9);
+      const ones = rand(1, 9);
+      const made = tens * 10 + ones;
+      const byTwo = rand(40, 70);
+      const byFive = rand(40, 60);
+      const byTen = rand(20, 50);
+      const orderNums = [rand(40, 99), rand(40, 99), rand(40, 99)];
+      const nearLeft = rand(70, 79);
+      const nearRight = rand(81, 95);
+      const nearAnswer = 80 - nearLeft <= nearRight - 80 ? nearLeft : nearRight;
+      return [
+        makeItem(`${n} 裡面有幾個十和幾個一？`, `${n} 可以分成 ${Math.floor(n / 10) * 10} 和 ${n % 10}，所以是 ${Math.floor(n / 10)} 個十和 ${n % 10} 個一。`, `${Math.floor(n / 10)} 個十和 ${n % 10} 個一`),
+        makeItem(`用 ${tens} 個十和 ${ones} 個一組成的數是多少？`, `${tens} 個十是 ${tens * 10}，再加 ${ones} 個一，就是 ${made}。`, `${made}`),
+        makeItem(`請寫出 ${n} 的前一個數和後一個數。`, `前一個少 1：${n - 1}；後一個多 1：${n + 1}。`, `${n - 1}、${n + 1}`),
+        makeItem(`從 ${byTwo} 開始，2 個一數，數 5 個數。`, `2 個一數就是每次多 2：${byTwo}、${byTwo + 2}、${byTwo + 4}、${byTwo + 6}、${byTwo + 8}。`, `${byTwo}、${byTwo + 2}、${byTwo + 4}、${byTwo + 6}、${byTwo + 8}`),
+        makeItem(`從 ${byFive} 開始，5 個一數，數 5 個數。`, `5 個一數就是每次多 5：${byFive}、${byFive + 5}、${byFive + 10}、${byFive + 15}、${byFive + 20}。`, `${byFive}、${byFive + 5}、${byFive + 10}、${byFive + 15}、${byFive + 20}`),
+        makeItem(`從 ${byTen} 開始，10 個一數，數 4 個數。`, `10 個一數就是每次多 1 個十：${byTen}、${byTen + 10}、${byTen + 20}、${byTen + 30}。`, `${byTen}、${byTen + 10}、${byTen + 20}、${byTen + 30}`),
+        makeItem(`請把 ${orderNums[0]}、${orderNums[1]}、${orderNums[2]} 由大到小排列。`, "先比十位，十位相同再比個位；數線越右邊越大。", [...orderNums].sort((a, b) => b - a).join("、")),
+        makeItem(`哪一個比較接近 80：${nearLeft} 還是 ${nearRight}？`, `${nearLeft} 到 80 差 ${80 - nearLeft}；${nearRight} 到 80 差 ${nearRight - 80}。差比較少的比較接近。`, `${nearAnswer}`),
+        makeItem(`${made} 比 ${tens * 10} 多多少？`, `${made} 是 ${tens * 10} 加 ${ones}，所以多 ${ones}。`, `多 ${ones}`),
+        makeItem("百數表上同一欄往下移一格，通常會多多少？", "百數表每列有 10 個數，往下一格就是多 10。", "多 10")
+      ];
+    }
+
+    function generateUnitSeven() {
+      const ten = rand(1, 8);
+      const one = rand(1, 9);
+      const price = rand(21, 48);
+      const pay = pick([50, 100]);
+      const buyA = rand(12, 35);
+      const buyB = rand(10, 30);
+      return [
+        makeItem(`${ten} 個 10 元和 ${one} 個 1 元合起來是幾元？`, `${ten} 個 10 元是 ${ten * 10} 元，再加 ${one} 元，合起來是 ${ten * 10 + one} 元。`, `${ten * 10 + one} 元`),
+        makeItem(`1 個 50 元可以換成幾個 10 元？`, `10、20、30、40、50，數到 50 需要 5 個 10 元。`, "5 個"),
+        makeItem(`付 ${pay} 元買 ${price} 元的東西，應找回幾元？`, `找錢用減法：${pay} - ${price} = ${pay - price}。`, `${pay - price} 元`),
+        makeItem(`牛奶 ${buyA} 元，麵包 ${buyB} 元，一共要幾元？`, `買兩樣合起來，用 ${buyA} + ${buyB} = ${buyA + buyB}。`, `${buyA + buyB} 元`),
+        makeItem(`買 ${price} 元的東西，可以怎麼付剛好的錢？`, `${price} 可以分成 ${Math.floor(price / 10) * 10} 和 ${price % 10}，也就是 ${Math.floor(price / 10)} 個 10 元和 ${price % 10} 個 1 元。`, `${Math.floor(price / 10)} 個 10 元和 ${price % 10} 個 1 元`),
+        makeItem(`小華有 ${price} 元，再得到 10 元，現在有幾元？`, `多 10 元就是多 1 個十：${price} + 10 = ${price + 10}。`, `${price + 10} 元`),
+        makeItem(`小明有 ${pay} 元，花掉 ${buyA} 元，還剩幾元？`, `花掉就是拿走，用 ${pay} - ${buyA} = ${pay - buyA}。`, `${pay - buyA} 元`),
+        makeItem("為什麼 1 個 10 元不是 1 元？", "錢幣要看幣值，10 元硬幣代表 10 個 1 元的價值。", "因為幣值是 10 元"),
+        makeItem(`哪一組是 ${ten * 10 + one} 元：${ten} 個 10 元和 ${one} 個 1 元，或 ${ten + 1} 個 10 元和 ${one} 個 1 元？`, `第一組是 ${ten * 10 + one} 元，第二組是 ${(ten + 1) * 10 + one} 元。`, `${ten} 個 10 元和 ${one} 個 1 元`),
+        makeItem("買東西時，為什麼要先看價格再付錢？", "價格表示需要付出的金額，先看清楚才能判斷錢夠不夠或要找多少。", "確認金額與找錢")
+      ];
+    }
+
+    function generateUnitEight() {
+      const a = rand(21, 69);
+      const b = rand(11, 29);
+      const c = rand(50, 99);
+      const d = rand(11, Math.min(49, c - 1));
+      return [
+        makeItem(`${a} + ${b} = ?`, `先加十位，再加個位：${Math.floor(a / 10) * 10} + ${Math.floor(b / 10) * 10}，再加 ${a % 10} + ${b % 10}，合起來是 ${a + b}。`, `${a + b}`),
+        makeItem(`${c} - ${d} = ?`, `先減十位，再減個位：${c} - ${Math.floor(d / 10) * 10} = ${c - Math.floor(d / 10) * 10}，再減 ${d % 10} 得 ${c - d}。`, `${c - d}`),
+        makeItem(`${a} + 20 = ?`, `20 是 2 個十，把 ${a} 的十位增加 2 個十，得到 ${a + 20}。`, `${a + 20}`),
+        makeItem(`${c} - 30 = ?`, `30 是 3 個十，從 ${c} 拿走 3 個十，得到 ${c - 30}。`, `${c - 30}`),
+        makeItem(`小美有 ${a} 張貼紙，又買 ${b} 張，一共有幾張？`, `又買表示增加，用 ${a} + ${b} = ${a + b}。`, `${a + b} 張`),
+        makeItem(`書架有 ${c} 本書，借走 ${d} 本，還剩幾本？`, `借走表示減少，用 ${c} - ${d} = ${c - d}。`, `${c - d} 本`),
+        makeItem(`哥哥跑 ${c} 公尺，弟弟跑 ${d} 公尺，哥哥比弟弟多幾公尺？`, `比較多多少，用減法 ${c} - ${d} = ${c - d}。`, `${c - d} 公尺`),
+        makeItem(`請填空：${a} + __ = ${a + 20}`, `從 ${a} 到 ${a + 20}，十位多了 2 個十，所以空格是 20。`, "20"),
+        makeItem(`請填空：${c} - __ = ${c - 10}`, `從 ${c} 變成 ${c - 10}，少了 1 個十，所以空格是 10。`, "10"),
+        makeItem("二位數加減時，為什麼要看十位和個位？", "二位數是由幾個十和幾個一組成，分開看位值可以讓計算更清楚。", "因為要運用位值")
+      ];
+    }
+
+    function generateUnitNine() {
+      const weekdays = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+      const idx = rand(0, 6);
+      const days = rand(1, 5);
+      const month = rand(1, 12);
+      const day = rand(1, 24);
+      const afterIdx = (idx + days) % 7;
+      return [
+        makeItem("一星期有幾天？", "從星期一數到星期日，共有 7 天。", "7 天"),
+        makeItem(`${weekdays[idx]} 的後一天是星期幾？`, `星期順序往後數一天，${weekdays[idx]} 後面是 ${weekdays[(idx + 1) % 7]}。`, `${weekdays[(idx + 1) % 7]}`),
+        makeItem(`${weekdays[idx]} 的前一天是星期幾？`, `星期順序往前數一天，${weekdays[idx]} 前面是 ${weekdays[(idx + 6) % 7]}。`, `${weekdays[(idx + 6) % 7]}`),
+        makeItem(`如果今天是 ${weekdays[idx]}，過 ${days} 天是星期幾？`, `從 ${weekdays[idx]} 往後數 ${days} 天，會到 ${weekdays[afterIdx]}。`, `${weekdays[afterIdx]}`),
+        makeItem(`${month} 月 ${day} 日的後一天是幾月幾日？`, `同一個月往後一天，日期加 1：${day} + 1 = ${day + 1}。`, `${month} 月 ${day + 1} 日`),
+        makeItem(`如果 ${month} 月 ${day} 日是 ${weekdays[idx]}，${month} 月 ${day + 2} 日是星期幾？`, `日期過 2 天，星期也往後數 2 天：${weekdays[(idx + 2) % 7]}。`, `${weekdays[(idx + 2) % 7]}`),
+        makeItem("一年有幾個月？", "從 1 月數到 12 月，所以一年有 12 個月。", "12 個月"),
+        makeItem(`請把 ${weekdays[4]}、${weekdays[2]}、${weekdays[0]} 依一星期順序排列。`, "一星期先到星期一，再到星期三，最後到星期五。", "星期一、星期三、星期五"),
+        makeItem(`如果今天是 ${month} 月 ${day} 日，昨天是幾月幾日？`, `昨天是前一天，同一個月日期少 1：${day} - 1 = ${day - 1}。`, `${month} 月 ${day - 1} 日`),
+        makeItem("日曆上同一列相鄰的兩天，日期相差多少？", "左右相鄰表示連續日期，連續日期每次相差 1 天。", "相差 1 天")
+      ];
+    }
+
+    const generators = [
+      generateUnitOne,
+      generateUnitTwo,
+      generateUnitThree,
+      generateUnitFour,
+      generateUnitFive,
+      generateUnitSix,
+      generateUnitSeven,
+      generateUnitEight,
+      generateUnitNine
+    ];
+
+    function padPage(value) {
+      return String(value).padStart(2, "0");
+    }
+
+    function renderTabs() {
+      tabs.innerHTML = units.map((unit, index) => `
+        <button class="tab${index === currentIndex ? " active" : ""}" type="button" data-index="${index}">
+          ${unit.label.replace("單元", "單元 ")}
+        </button>
+      `).join("");
+    }
+
+    function renderPanel() {
+      const unit = units[currentIndex];
+      const currentQuestions = generatedQuestions[currentIndex] || unit.questions;
+      const isGenerated = Boolean(generatedQuestions[currentIndex]);
+      chapterMark.textContent = `${unit.label}｜${unit.title}`;
+      pageCount.textContent = `${padPage(currentIndex + 1)} / ${padPage(units.length)}`;
+      panel.innerHTML = `
+        <aside class="unit-head">
+          <p class="unit-kicker">${padPage(currentIndex + 1)} / ${padPage(units.length)}</p>
+          <h2 class="unit-title">${unit.label}：${unit.title}</h2>
+          <p class="unit-desc">${unit.desc}</p>
+          <div class="meta-list" aria-label="單元資訊">
+            <div><span>練習題</span><strong>10</strong></div>
+            <div><span>答案模式</span><strong>逐題</strong></div>
+            <div><span>教材</span><strong>PDF</strong></div>
+          </div>
+          <a class="material-link" href="${encodeURI(unit.file)}" target="_blank" rel="noopener">開啟本單元 PDF 教材</a>
+        </aside>
+        <section class="practice" aria-label="${unit.label}課後測驗">
+          <div class="practice-head">
+            <div>
+              <h2>課後測驗練習題</h2>
+              <p>${isGenerated ? "這組是隨機新題，先作答，再逐題展開解題過程。" : "先作答，再逐題展開解題過程。"}</p>
+            </div>
+            <div class="practice-tools">
+              <button class="tool-btn primary" type="button" id="generateQuestions">隨機產生新 10 題</button>
+              <button class="tool-btn" type="button" id="restoreQuestions"${isGenerated ? "" : " disabled"}>回復預設題目</button>
+            </div>
+          </div>
+          <ol class="questions">
+            ${currentQuestions.map((item, index) => `
+              <li class="question">
+                <span class="number">${index + 1}</span>
+                <div>
+                  <p class="prompt">${item[0]}</p>
+                  <button class="answer-toggle" type="button" aria-expanded="false">看解題過程</button>
+                  <div class="solution">
+                    <p class="solution-title">解題過程</p>
+                    <p>${item[1]}</p>
+                    <p class="final-answer">答案：${item[2]}</p>
+                  </div>
+                </div>
+              </li>
+            `).join("")}
+          </ol>
+          <p class="note">說明：本頁以單元主題與一年級常用教法整理逐題推導；若教材 PDF 有指定特殊說法，建議以 PDF 原教材為準。</p>
+        </section>
+      `;
+    }
+
+    function render() {
+      renderTabs();
+      renderPanel();
+    }
+
+    tabs.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-index]");
+      if (!button) return;
+      currentIndex = Number(button.dataset.index);
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    panel.addEventListener("click", (event) => {
+      if (event.target.closest("#generateQuestions")) {
+        generatedQuestions[currentIndex] = generators[currentIndex]();
+        renderPanel();
+        return;
+      }
+
+      if (event.target.closest("#restoreQuestions")) {
+        delete generatedQuestions[currentIndex];
+        renderPanel();
+        return;
+      }
+
+      const button = event.target.closest(".answer-toggle");
+      if (!button) return;
+
+      const solution = button.closest(".question").querySelector(".solution");
+      const isVisible = solution.classList.toggle("visible");
+      button.textContent = isVisible ? "隱藏解題過程" : "看解題過程";
+      button.setAttribute("aria-expanded", String(isVisible));
+    });
+
+    render();
+  </script>
+</body>
+</html>
